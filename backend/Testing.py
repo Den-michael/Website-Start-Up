@@ -2,10 +2,6 @@
 import socket
 
 
-# ==================================
-# 1. SERVER CONFIGURATION
-# ==================================
-
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 server.bind(("127.0.0.1", 8000))
@@ -14,17 +10,8 @@ server.listen()
 
 print("Server is listening on 127.0.0.1:8000")
 
-
-# ==================================
-# 2. FRONTEND DIRECTORY
-# ==================================
-
 frontend_folder = r"C:\Users\Den\Documents\Python Project\frontend"
 
-
-# ==================================
-# 3. URL ROUTING
-# ==================================
 
 routes = {
     "/": ("index.html", "text/html; charset=utf-8"),
@@ -40,10 +27,6 @@ routes = {
     )
 }
 
-
-# ==================================
-# 4. SERVER LOOP
-# ==================================
 
 while True:
 
@@ -70,9 +53,6 @@ while True:
     print("Version:", version)
 
 
-    # ==================================
-    # 5. PROCESS REQUEST
-    # ==================================
 
     if method == "GET" and path in routes:
 
@@ -94,9 +74,6 @@ while True:
         status = "404 Not Found"
 
 
-    # ==================================
-    # 6. BUILD HTTP RESPONSE
-    # ==================================
 
     headers = (
         f"HTTP/1.1 {status}\r\n"
@@ -108,15 +85,5 @@ while True:
     response = headers + body
 
 
-    # ==================================
-    # 7. SEND RESPONSE
-    # ==================================
-
     connection.sendall(response)
-
-
-    # ==================================
-    # 8. CLOSE CLIENT CONNECTION
-    # ==================================
-
     connection.close()
